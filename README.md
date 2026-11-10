@@ -3,6 +3,7 @@
 [![LangChain](https://img.shields.io/badge/LangChain-1.7-1C3C3C?logo=langchain&logoColor=white)](https://python.langchain.com)
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org)
 ![Runs offline](https://img.shields.io/badge/API%20key-optional-2ea44f)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 A support ticket triage pipeline built with LangChain Expression Language (LCEL). Given a customer message, it returns a category, sentiment, keywords, an escalation decision and a draft reply.
 
@@ -129,3 +130,7 @@ Written against LangChain 1.7. Older examples online may differ:
 - Imports come from `langchain_core` and `langchain_openai`.
 - Use `prompt | model | parser` instead of `LLMChain`.
 - `DatetimeOutputParser` isn't in `langchain-core`, so [`triage/parsers.py`](triage/parsers.py) has a small custom parser instead.
+
+## License
+
+[MIT](LICENSE)
