@@ -1,9 +1,46 @@
 # Ticket Triage with LangChain
 
+[![LangChain](https://img.shields.io/badge/LangChain-1.7-1C3C3C?logo=langchain&logoColor=white)](https://python.langchain.com)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org)
+![Runs offline](https://img.shields.io/badge/API%20key-optional-2ea44f)
+
 A support ticket triage pipeline built with LangChain Expression Language (LCEL). Given a customer message, it returns a category, sentiment, keywords, an escalation decision and a draft reply.
 
 - [`triage/chains.py`](triage/chains.py) has the full pipeline.
 - [`examples/`](examples) has one short, runnable script per LCEL pattern, all using the same tickets and prompts.
+
+## How the pipeline works
+
+```mermaid
+flowchart LR
+    T(["Raw ticket"]) --> P["prepare_ticket<br/><i>RunnableLambda</i><br/>clean text, mask emails"]
+    P --> A
+    subgraph A ["analysis · RunnableParallel"]
+        direction TB
+        C["category<br/>prompt | model | parser"]
+        S["sentiment<br/>prompt | model | parser"]
+        K["keywords<br/>prompt | model | list parser"]
+        I["ticket<br/>itemgetter"]
+    end
+    A --> R{"route_ticket<br/><i>@chain</i>"}
+    R -- "negative and<br/>billing or technical" --> E(["Escalate to a human"])
+    R -- "otherwise" --> D["reply chain<br/>prompt | model | parser"]
+    D --> O(["Draft reply"])
+```
+
+Every box is a Runnable, so the whole pipeline supports `invoke`, `batch`, `stream` and `get_graph()` like any single step.
+
+## Sample output
+
+The five sample tickets in [`triage/data.py`](triage/data.py), run through the pipeline with the offline model:
+
+| Ticket | Category | Sentiment | Keywords | Action |
+|---|---|---|---|---|
+| I was charged twice for my subscription on 2026-11-03… | billing | negative | charged, twice, subscription | 🚨 escalate |
+| The mobile app keeps crashing when I open the reports tab. | technical | neutral | mobile, crashing, reports | ✉️ auto reply |
+| Thanks for the great service! How do I change the email… | account | positive | thanks, great, service | ✉️ auto reply |
+| Do you offer a student discount? | other | neutral | student, discount | ✉️ auto reply |
+| The export feature is broken again and I am really frustrated… | technical | negative | export, feature, broken | 🚨 escalate |
 
 ## Setup
 
@@ -34,6 +71,20 @@ OPENAI_MODEL=gpt-4o-mini
 ```
 
 All model creation goes through `get_model()` in [`triage/model.py`](triage/model.py), so another provider only needs a new branch there. The OpenAI path hasn't been run against the live API, so `OPENAI_MODEL` may need updating.
+
+## Anatomy of a chain
+
+What each step of `prompt | model | parser` receives and returns. Rounded boxes are data, square boxes are Runnables.
+
+```mermaid
+flowchart LR
+    I(["dict<br/>{'ticket': '...'}"]) --> P["ChatPromptTemplate"]
+    P --> V(["ChatPromptValue<br/>list of messages"])
+    V --> M["Chat model"]
+    M --> AI(["AIMessage"])
+    AI --> O["StrOutputParser"]
+    O --> S(["str<br/>'billing'"])
+```
 
 ## Examples
 
