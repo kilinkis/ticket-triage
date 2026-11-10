@@ -1,6 +1,6 @@
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/langchain-ai/langchain/cf518216f7f888cd76fdd8f3c96560d3d429b641/.github/images/logo-dark.svg">
-  <img alt="LangChain" src="https://raw.githubusercontent.com/langchain-ai/langchain/cf518216f7f888cd76fdd8f3c96560d3d429b641/.github/images/logo-light.svg" width="236">
+  <source media="(prefers-color-scheme: dark)" srcset=".github/images/langchain-logo-dark.svg">
+  <img alt="LangChain" src=".github/images/langchain-logo-light.svg" width="240">
 </picture>
 
 # Ticket Triage with LangChain
@@ -139,3 +139,5 @@ Written against LangChain 1.7. Older examples online may differ:
 ## License
 
 [MIT](LICENSE)
+
+The LangChain logo in [`.github/images`](.github/images) is a trademark of LangChain, Inc. It comes from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:LangChain_Logo.svg), where it is published under the MIT license, and is used here only to show the project is built with LangChain.
