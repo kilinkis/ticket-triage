@@ -1,3 +1,8 @@
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/langchain-ai/langchain/cf518216f7f888cd76fdd8f3c96560d3d429b641/.github/images/logo-dark.svg">
+  <img alt="LangChain" src="https://raw.githubusercontent.com/langchain-ai/langchain/cf518216f7f888cd76fdd8f3c96560d3d429b641/.github/images/logo-light.svg" width="236">
+</picture>
+
 # Ticket Triage with LangChain
 
 [![LangChain](https://img.shields.io/badge/LangChain-1.7-1C3C3C?logo=langchain&logoColor=white)](https://python.langchain.com)
