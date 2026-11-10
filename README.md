@@ -3,7 +3,7 @@
   <img alt="LangChain" src=".github/images/langchain-logo-light.svg" width="240">
 </picture>
 
-# Ticket Triage with LangChain
+# Ticket Triage
 
 [![LangChain](https://img.shields.io/badge/LangChain-1.7-1C3C3C?logo=langchain&logoColor=white)](https://python.langchain.com)
 [![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?logo=python&logoColor=white)](https://www.python.org)
